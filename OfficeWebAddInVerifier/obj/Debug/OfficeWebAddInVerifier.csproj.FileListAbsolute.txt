@@ -1,0 +1,10 @@
+C:\Users\davidcr\Visual Studio\Projects\OfficeWebAddInVerifier\OfficeWebAddInVerifier\bin\Debug\OfficeWebAddInVerifier.exe.config
+C:\Users\davidcr\Visual Studio\Projects\OfficeWebAddInVerifier\OfficeWebAddInVerifier\bin\Debug\OfficeWebAddInVerifier.exe
+C:\Users\davidcr\Visual Studio\Projects\OfficeWebAddInVerifier\OfficeWebAddInVerifier\bin\Debug\OfficeWebAddInVerifier.pdb
+C:\Users\davidcr\Visual Studio\Projects\OfficeWebAddInVerifier\OfficeWebAddInVerifier\obj\Debug\OfficeWebAddInVerifier.csproj.AssemblyReference.cache
+C:\Users\davidcr\Visual Studio\Projects\OfficeWebAddInVerifier\OfficeWebAddInVerifier\obj\Debug\OfficeWebAddInVerifier.FormMain.resources
+C:\Users\davidcr\Visual Studio\Projects\OfficeWebAddInVerifier\OfficeWebAddInVerifier\obj\Debug\OfficeWebAddInVerifier.Properties.Resources.resources
+C:\Users\davidcr\Visual Studio\Projects\OfficeWebAddInVerifier\OfficeWebAddInVerifier\obj\Debug\OfficeWebAddInVerifier.csproj.GenerateResource.cache
+C:\Users\davidcr\Visual Studio\Projects\OfficeWebAddInVerifier\OfficeWebAddInVerifier\obj\Debug\OfficeWebAddInVerifier.csproj.CoreCompileInputs.cache
+C:\Users\davidcr\Visual Studio\Projects\OfficeWebAddInVerifier\OfficeWebAddInVerifier\obj\Debug\OfficeWebAddInVerifier.exe
+C:\Users\davidcr\Visual Studio\Projects\OfficeWebAddInVerifier\OfficeWebAddInVerifier\obj\Debug\OfficeWebAddInVerifier.pdb
