@@ -96,5 +96,15 @@ namespace OfficeWebAddInVerifier
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DialogResult LobjResult = MessageBox.Show("Click yes, if you want to scan a directory, click no, if you want to select a file");
+        }
+
+        private void listViewResults_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
