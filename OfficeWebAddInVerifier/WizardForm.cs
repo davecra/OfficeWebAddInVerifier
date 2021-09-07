@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using OfficeWebAddInVerifier.Wizard;
 
 namespace OfficeWebAddInVerifier
 {
@@ -37,13 +39,17 @@ namespace OfficeWebAddInVerifier
 
         private void FormWizard_Load(object sender, EventArgs e)
         {
+            this.Width = pictureBox1.Left + pictureBox1.Width + 5 + panel1.Width + 20;
+            buttonNext.Left = this.Width - buttonNext.Width - 20;
+            buttonBack.Left = buttonNext.Left - buttonBack.Width - 5;
+            buttonCancel.Left = buttonBack.Left - buttonCancel.Width - 5;
             MobjWizard = new WizardController(new WizardButtons() { BackButton = buttonBack, CancelButton = buttonCancel, NextButton = buttonNext },
                                               new[] { panel1, panel2, panel3, panel4, panel5 });
             MobjWizard.Closed += (o, ev) => { this.Close(); };
             MobjWizard.Finished += (o, ev) =>
             {
                 // load up the verifier and then check
-                ManifestVerifier LobjVerifier = new ManifestVerifier(textBoxManifest.Text);
+                ManifestVerifier LobjVerifier = new ManifestVerifier(textBoxManifest.Text, listBoxFiles.Items.ToList());
                 LogForm LobjLog = new LogForm();
                 LobjLog.FormClosed += (oj, ej) => { this.Close(); };
                 LobjLog.Visible = true;
@@ -140,6 +146,7 @@ namespace OfficeWebAddInVerifier
             if(radioButtonFileList.Checked)
             {
                 openFileDialog.Filter = "Text File - List (*.txt) | *.txt";
+                openFileDialog.InitialDirectory = new FileInfo(textBoxManifest.Text).Directory.FullName;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     textBoxLocation.Text = openFileDialog.FileName;
@@ -149,6 +156,7 @@ namespace OfficeWebAddInVerifier
                     StreamReader LobjReader = new StreamReader(textBoxLocation.Text);
                     string[] LstrList = LobjReader.ReadToEnd().Split('\n');
                     LobjReader.Close();
+                    listBoxFiles.Items.Clear();
                     listBoxFiles.Items.AddRange(LstrList);
                     groupBoxFileList.Visible = true;
                     MobjWizard.AllowNextButton();
@@ -157,7 +165,10 @@ namespace OfficeWebAddInVerifier
             }
             else if(radioButtonScanFolder.Checked)
             {
-                if(folderBrowserDialog.ShowDialog() == DialogResult.OK)
+                folderBrowserDialog.ShowNewFolderButton = false;
+                folderBrowserDialog.Description = "Select the publish folder for your add-in";
+                folderBrowserDialog.SelectedPath = new FileInfo(textBoxManifest.Text).Directory.FullName;
+                if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
                 {
                     textBoxLocation.Text = folderBrowserDialog.SelectedPath;
                     this.Refresh();
@@ -205,89 +216,48 @@ namespace OfficeWebAddInVerifier
                 MessageBox.Show("File created successfully.");
             }
         }
-    }
 
-    public class WizardController
-    {
-        public delegate void CloseHandler(object Sender, EventArgs args);
-        public event CloseHandler Closed;
-        public delegate void FinishedHandler(object sender, EventArgs args);
-        public event FinishedHandler Finished;
-        private int MintCurrentStep = 0;
-        private List<Panel> MobjSteps = new List<Panel>();
-        private WizardButtons MobjButtons = null;
-        public WizardController(WizardButtons PobjButtons, Panel[] PobjPanes)
+        private void buttonNext_Click(object sender, EventArgs e)
         {
-            MobjSteps.AddRange(PobjPanes);
-            MobjButtons = PobjButtons;
-            MobjButtons.NextButton.Enabled = false;
-            MobjButtons.BackButton.Enabled = false;
-            PobjButtons.CancelButton.Click += (o, e) =>
-            {
-                DialogResult LobjResult = MessageBox.Show("Are you sure you want to cancel and close this wizard?",
-                                          Application.ProductName, MessageBoxButtons.YesNoCancel,
-                                          MessageBoxIcon.Question);
-                if (LobjResult == DialogResult.Yes && Closed != null) Closed(this, new EventArgs());
-            };
-            PobjButtons.NextButton.Click += (o, e) =>
-            {
-                NextStep();
-            };
-            PobjButtons.BackButton.Click += (o, e) =>
-            {
-                BackStep();
-            };
-            SetStep(0);
+
         }
-        public void AllowNextButton()
+
+        private void buttonSaveConfig_Click(object sender, EventArgs e)
         {
-            MobjButtons.NextButton.Enabled = true;
-        }
-        private void NextStep()
-        {
-            if(MintCurrentStep == MobjSteps.Count - 1)
+            // create the config
+            VerificationConfiguration LobjConfig = new VerificationConfiguration();
+            LobjConfig.Asmx = textBoxUrl.Text;
+            LobjConfig.ManifestPath = textBoxManifest.Text;
+            LobjConfig.Files = listBoxFiles.Items.ToList();
+            LobjConfig.GetManifestAsBase64();
+            saveFileDialog.Filter = "Addin Verifier Configuration (*.config) | *.config";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if (Finished != null) Finished(this, new EventArgs());
-                return;
-            }
-            MobjButtons.NextButton.Enabled = false;
-            MobjButtons.BackButton.Enabled = true;
-            MintCurrentStep++;
-            SetStep(MintCurrentStep);
-            if(MintCurrentStep >= MobjSteps.Count - 1)
-            {
-                MobjButtons.NextButton.Text = "&Finish";
+                StreamWriter LobjW = new StreamWriter(saveFileDialog.FileName, false);
+                LobjW.WriteLine(JsonConvert.SerializeObject(LobjConfig));
+                LobjW.Close();
+                MessageBox.Show("Config file created successfully.");
             }
         }
-        private void BackStep()
+
+        private void buttonLoad_Click(object sender, EventArgs e)
         {
-            MobjButtons.NextButton.Text = "&Next >";
-            MintCurrentStep--;
-            SetStep(MintCurrentStep);
-            if (MintCurrentStep <= 0) MobjButtons.BackButton.Enabled = false;
-            MobjButtons.NextButton.Enabled = true;
-        }
-        /// <summary>
-        /// Sets the current step in the wizard and then disables
-        /// the next button and enables the back button
-        /// </summary>
-        /// <param name="PintStep"></param>
-        private void SetStep(int PintStep)
-        {
-            foreach (Panel LobjItem in MobjSteps)
+            openFileDialog.Filter = "Addin Verifier Configuration (*.config) | *.config";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                LobjItem.Visible = false;
-                LobjItem.Top = MobjSteps[0].Top;
-                LobjItem.Left = MobjSteps[0].Left;
+                StreamReader LobjR = new StreamReader(openFileDialog.FileName);
+                VerificationConfiguration LobjConfig =  JsonConvert.DeserializeObject<VerificationConfiguration>(LobjR.ReadToEnd());
+                textBoxUrl.Text = LobjConfig.Asmx;
+                textBoxManifest.Text = LobjConfig.ManifestPath;
+                listBoxFiles.Items.AddRange(LobjConfig.Files.ToArray());
+                if(listBoxFiles.Items.Count > 0)
+                {
+                    radioButtonFileList.Checked = true;
+                    groupBoxFileList.Visible = true;
+                }
+                MessageBox.Show("Config file loaded successfully.");
+                MobjWizard.EnableAllSteps = true;
             }
-            if (PintStep >= MobjSteps.Count) return;
-            MobjSteps[PintStep].Visible = true;
         }
-    }
-    public class WizardButtons
-    {
-        public Button NextButton { get; set; }
-        public Button BackButton { get; set; }
-        public Button CancelButton { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,6 +46,31 @@ namespace OfficeWebAddInVerifier
         private void listViewResults_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void saveLogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog LobjSaveFileDialog = new SaveFileDialog();
+            LobjSaveFileDialog.Filter = "Log File (*.log)|*.log";
+            if(LobjSaveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                StreamWriter LobjWrite = new StreamWriter(LobjSaveFileDialog.FileName);
+                foreach (ListViewItem LobjItem in listViewResults.Items)
+                {
+                    LobjWrite.WriteLine(LobjItem.Text);
+                }
+                LobjWrite.Close();
+            }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

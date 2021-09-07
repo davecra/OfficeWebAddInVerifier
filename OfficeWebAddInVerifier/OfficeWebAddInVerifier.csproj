@@ -48,6 +48,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -69,13 +70,14 @@
       <DependentUpon>LogForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ManifestParts\ManifestBase.cs" />
+    <Compile Include="ManifestParts\ManifestFiles.cs" />
     <Compile Include="ManifestParts\ManifestHeader.cs" />
     <Compile Include="ManifestParts\IManifestInterface.cs" />
     <Compile Include="ManifestParts\ManifestResources.cs" />
     <Compile Include="ManifestParts\ManifestUrl.cs" />
     <Compile Include="ManifestParts\NotifyEventArgs.cs" />
     <Compile Include="ManifestParts\OutputHandlerArgs.cs" />
-    <Compile Include="ManifestVerifier.cs" />
+    <Compile Include="Common\ManifestVerifier.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validators\IValidator.cs" />
@@ -83,12 +85,15 @@
     <Compile Include="Validators\ValidateImage.cs" />
     <Compile Include="Validators\ValidateJS.cs" />
     <Compile Include="Validators\ValidateOfficeJS.cs" />
+    <Compile Include="Common\VerificationConfiguration.cs" />
     <Compile Include="WizardForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="WizardForm.Designer.cs">
       <DependentUpon>WizardForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Wizard\WizardButtons.cs" />
+    <Compile Include="Wizard\WizardController.cs" />
     <EmbeddedResource Include="LogForm.resx">
       <DependentUpon>LogForm.cs</DependentUpon>
     </EmbeddedResource>

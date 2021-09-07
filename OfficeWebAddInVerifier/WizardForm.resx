@@ -117,13 +117,39 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Select the manifest.xml for your add-in solution.
+
+NOTE: Be sure to select your PRODUCTION manifest and not a DEVELOPER manifest. 
+NOTE: One key way to tell the difference is that the developer manifest will likely be connected to a port number 
+           on the local host like this: https://localhost:#####.</value>
+  </data>
   <metadata name="openFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
   <metadata name="folderBrowserDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>279, 17</value>
   </metadata>
+  <data name="label5.Text" xml:space="preserve">
+    <value>You are all done with the wizard. 
+To save the wizard configuration, click Save config. 
+This config then be used to load the config at the beginning of the wizard to skip these steps.
+
+Click Finish to run the report and get the results.</value>
+  </data>
   <metadata name="saveFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>150, 17</value>
   </metadata>
+  <data name="label6.Text" xml:space="preserve">
+    <value>This wizard will guide you though the steps of testing your Office Add-in Manifest for proper connectivity.
+It will perform the following operations:
+
+1) It will validate the manifest is properly formed
+
+2) It will validate that the manifest primary components are accessible
+
+3) It will verify each file in the solution is accessible on the server and a CRC match
+
+4) If it is a mail application it will attempt to access the web service</value>
+  </data>
 </root>

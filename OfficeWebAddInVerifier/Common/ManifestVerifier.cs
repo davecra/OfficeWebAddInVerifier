@@ -15,15 +15,46 @@ namespace OfficeWebAddInVerifier
         public delegate void NotificationDelegate(object PobjSender, NotifyEventArgs PobjEvent);
         public event NotificationDelegate NotificationEvent;
         public string FailDescription { get; private set; }
-        public string Manifest { get; private set; }
+        public string ManifestPath { get; private set; }
+        public string ManifestXml { get; private set; }
+        public List<string> Files { get; private set; }
+        private XmlDocument MobjManifestDoc;
 
         /// <summary>
         /// CTOR
         /// </summary>
         /// <param name="PobjFilePath"></param>
-        public ManifestVerifier(string PstrFilePath)
+        public ManifestVerifier(string PstrManifest, List<string> PobjFiles)
         {
-            Manifest = PstrFilePath;
+            if (System.IO.File.Exists(PstrManifest))
+            {
+                ManifestPath = PstrManifest;
+                LoadManifestFromFile();
+            }
+            else
+            {
+                ManifestXml = PstrManifest;
+                LoadManifestFromXml();
+            }
+            Files = PobjFiles;
+        }
+
+        /// <summary>
+        /// Loads the manifest from the raw XML
+        /// </summary>
+        public void LoadManifestFromXml()
+        {
+            MobjManifestDoc = new XmlDocument();
+            MobjManifestDoc.LoadXml(ManifestXml);
+        }
+
+        /// <summary>
+        /// Loads the manifest from the file path
+        /// </summary>
+        public void LoadManifestFromFile()
+        {
+            MobjManifestDoc = new XmlDocument();
+            MobjManifestDoc.Load(ManifestPath);
         }
 
         /// <summary>
@@ -35,25 +66,24 @@ namespace OfficeWebAddInVerifier
             try
             {
                 // open the manifest and get the URL's from it...
-                XmlDocument LobjDoc = new XmlDocument();
-                LobjDoc.Load(Manifest);
+
                 ManifestCheckType("Manifest loaded, reading header...",
-                                  new ManifestHeader(LobjDoc));
+                                  new ManifestHeader(MobjManifestDoc));
                 ManifestCheckType("Confirming IconUrl...",
-                                  new ManifestUrl(LobjDoc, "IconUrl", ManifestUrl.UrlType.Image));
+                                  new ManifestUrl(MobjManifestDoc, "IconUrl", ManifestUrl.UrlType.Image));
                 ManifestCheckType("Confirming HighResolutionIconUrl...",
-                                  new ManifestUrl(LobjDoc, "HighResolutionIconUrl", ManifestUrl.UrlType.Image));
+                                  new ManifestUrl(MobjManifestDoc, "HighResolutionIconUrl", ManifestUrl.UrlType.Image));
                 ManifestCheckType("Confirming SupportUrl...",
-                                  new ManifestUrl(LobjDoc, "SupportUrl", ManifestUrl.UrlType.Html));
-                ManifestCheckType("Confirming SourceLocation...",
-                                  new ManifestUrl(LobjDoc, "SourceLocation", ManifestUrl.UrlType.TaskPane));
+                                  new ManifestUrl(MobjManifestDoc, "SupportUrl", ManifestUrl.UrlType.Html));
+                ManifestUrl LobjManifestBaseUrl = new ManifestUrl(MobjManifestDoc, "SourceLocation", ManifestUrl.UrlType.TaskPane);
+                ManifestCheckType("Confirming SourceLocation...", LobjManifestBaseUrl);
                 ManifestCheckType("Confirming all Resource Images...",
-                                  new ManifestResources(LobjDoc, "//bt:Images/bt:Image", "Images"));
+                                  new ManifestResources(MobjManifestDoc, "//bt:Images/bt:Image", "Images"));
                 ManifestCheckType("Confirming all Resource Urls...",
-                                  new ManifestResources(LobjDoc, "//bt:Urls/bt:Url", "Url"));
-                //ManifestCheckType("Confirming all files in solution...", new ...);
+                                  new ManifestResources(MobjManifestDoc, "//bt:Urls/bt:Url", "Url"));
+                ManifestCheckType("Confirming all files in solution...", 
+                                  new ManifestFiles(MobjManifestDoc, LobjManifestBaseUrl.BaseUrl, Files));
                 ///ManifestCheckType("Confirming Exchange.asmx connection...", new ...);
-                //ManifestCheckType("...", new ...); // done - reset
                 return true; // success
             }
             catch(Exception PobjEx)

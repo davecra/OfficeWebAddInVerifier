@@ -23,5 +23,15 @@ namespace OfficeWebAddInVerifier
                             Application.ProductName, MessageBoxButtons.OK, 
                             MessageBoxIcon.Error);
         }
+
+        public static List<string>ToList(this ListBox.ObjectCollection PobjItems)
+        {
+            List<string> LobjReturn = new List<string>();
+            foreach(string LobjItem in PobjItems)
+            {
+                LobjReturn.Add(LobjItem);
+            }
+            return LobjReturn;
+        }
     }
 }

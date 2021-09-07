@@ -11,9 +11,10 @@ namespace OfficeWebAddInVerifier.ManifestParts
     public class ManifestUrl : ManifestBase
     {
         public enum UrlType { Image, TaskPane, Dialog, Html, JS, Unknown };
-        private string MstrUrl = "";
-        private string MstrName = "";
-        private UrlType MobjType = UrlType.Unknown;
+        private readonly string MstrUrl = "";
+        private readonly string MstrName = "";
+        private readonly UrlType MobjType = UrlType.Unknown;
+        public string BaseUrl { get; private set; }
         /// <summary>
         /// CTOR
         /// </summary>
@@ -23,7 +24,11 @@ namespace OfficeWebAddInVerifier.ManifestParts
         {
             MstrName = PstrUrlName;
             MstrUrl = ReadManifestProp(MstrName, "DefaultValue", NamespaceSelected.none);
-            MobjType = PobjType;
+            if (!string.IsNullOrEmpty(MstrUrl))
+            {
+                BaseUrl = MstrUrl.Substring(0, MstrUrl.LastIndexOf("/"));
+                MobjType = PobjType;
+            }
         }
         /// <summary>
         /// Output the result

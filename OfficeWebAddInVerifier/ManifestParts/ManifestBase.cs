@@ -103,16 +103,16 @@ namespace OfficeWebAddInVerifier.ManifestParts
             {
                 if (PobjNs != NamespaceSelected.none)
                 {
-                    return MobjDoc.GetElementsByTagName(PstrField)
-                                  .Item(0)
-                                  .Attributes
+                    return MobjDoc.GetElementsByTagName(PstrField)?
+                                  .Item(0)?
+                                  .Attributes?
                                   .GetNamedItem(PstrAttribute, GetNamespace(PobjNs)).Value;
                 } 
                 else
                 {
-                    return MobjDoc.GetElementsByTagName(PstrField)
-                                  .Item(0)
-                                  .Attributes
+                    return MobjDoc.GetElementsByTagName(PstrField)?
+                                  .Item(0)?
+                                  .Attributes?
                                   .GetNamedItem(PstrAttribute).Value;
                 }
             }
