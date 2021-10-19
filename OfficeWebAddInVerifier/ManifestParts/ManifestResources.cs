@@ -33,7 +33,7 @@ namespace OfficeWebAddInVerifier.ManifestParts
                         LbolValidated = new ValidateOfficeJS(Encoding.Default.GetString(MobjDownloadedData)).Check();
 
                     string LstrReturnValue = string.Format("{0}: Resource {1} file - {2} @ {3}\n", 
-                                                     (LbolVerified ? "SUCCESS" : "FAIL"),
+                                                     (LbolVerified ? "SUCCESS" : "FAILED"),
                                                      MstrName, LstrId, LstrValue);
                     SendMessage(LstrReturnValue, LbolVerified);
                 }

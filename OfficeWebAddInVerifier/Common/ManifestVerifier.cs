@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -17,14 +18,17 @@ namespace OfficeWebAddInVerifier
         public string FailDescription { get; private set; }
         public string ManifestPath { get; private set; }
         public string ManifestXml { get; private set; }
+        public NetworkCredential Credentials { get; private set; }
         public List<string> Files { get; private set; }
+        public string ExchangeAsmxUrl { get; private set; }
         private XmlDocument MobjManifestDoc;
+        public enum ADDIN_TYPE { Outlook, Office, UNKNOWN };
 
         /// <summary>
         /// CTOR
         /// </summary>
         /// <param name="PobjFilePath"></param>
-        public ManifestVerifier(string PstrManifest, List<string> PobjFiles)
+        public ManifestVerifier(string PstrManifest, List<string> PobjFiles, string PstrExchangeAsmx, NetworkCredential PobjCreds)
         {
             if (System.IO.File.Exists(PstrManifest))
             {
@@ -37,6 +41,8 @@ namespace OfficeWebAddInVerifier
                 LoadManifestFromXml();
             }
             Files = PobjFiles;
+            ExchangeAsmxUrl = PstrExchangeAsmx;
+            Credentials = PobjCreds;
         }
 
         /// <summary>
@@ -55,6 +61,39 @@ namespace OfficeWebAddInVerifier
         {
             MobjManifestDoc = new XmlDocument();
             MobjManifestDoc.Load(ManifestPath);
+        }
+
+        /// <summary>
+        /// Loads the manifest and read the initial type
+        /// </summary>
+        /// <param name="PstrPath"></param>
+        /// <returns></returns>
+        public static ADDIN_TYPE WhatTypeIsThis(string PstrPath)
+        {
+            try
+            {
+                XmlDocument LobjDoc = new XmlDocument();
+                LobjDoc.Load(PstrPath);
+                // We are looking for this:
+                // <Hosts>
+                //  <Host Name="Mailbox" />
+                // </Hosts>
+                XmlNodeList LobjHostNode = LobjDoc.DocumentElement.GetElementsByTagName("Host");
+                if(LobjHostNode.Count > 0)
+                {
+                    if(LobjHostNode[0].Attributes.Count > 0 &&
+                       LobjHostNode[0].Attributes["Name"] != null && 
+                       LobjHostNode[0].Attributes["Name"].Value == "Mailbox")
+                    {
+                        return ADDIN_TYPE.Outlook;
+                    }
+                }
+                return ADDIN_TYPE.Office;
+            }
+            catch
+            {
+                return ADDIN_TYPE.UNKNOWN;
+            }
         }
 
         /// <summary>
@@ -83,7 +122,11 @@ namespace OfficeWebAddInVerifier
                                   new ManifestResources(MobjManifestDoc, "//bt:Urls/bt:Url", "Url"));
                 ManifestCheckType("Confirming all files in solution...", 
                                   new ManifestFiles(MobjManifestDoc, LobjManifestBaseUrl.BaseUrl, Files));
-                ///ManifestCheckType("Confirming Exchange.asmx connection...", new ...);
+                if (!string.IsNullOrEmpty(ExchangeAsmxUrl))
+                {
+                    ManifestCheckType("Confirming Exchange server connection...",
+                                      new ExchangeAsmxTest(MobjManifestDoc, ExchangeAsmxUrl, Credentials));
+                }
                 return true; // success
             }
             catch(Exception PobjEx)

@@ -17,6 +17,11 @@ namespace OfficeWebAddInVerifier.Wizard
         private List<Panel> MobjSteps = new List<Panel>();
         private WizardButtons MobjButtons = null;
         public bool EnableAllSteps { get; set; }
+        /// <summary>
+        /// CTOR - loads the panels
+        /// </summary>
+        /// <param name="PobjButtons"></param>
+        /// <param name="PobjPanes"></param>
         public WizardController(WizardButtons PobjButtons, Panel[] PobjPanes)
         {
             MobjSteps.AddRange(PobjPanes);
@@ -40,10 +45,25 @@ namespace OfficeWebAddInVerifier.Wizard
             };
             SetStep(0);
         }
+        /// <summary>
+        /// Remove the selected panel
+        /// </summary>
+        /// <param name="PobjPanel"></param>
+        public void RemovePanel(Panel PobjPanel)
+        {
+            MobjSteps.Remove(PobjPanel);
+        }
+        /// <summary>
+        /// When called by the form, it means that the actions needed on that
+        /// panel were completed - so the next button can be enabled
+        /// </summary>
         public void AllowNextButton()
         {
             MobjButtons.NextButton.Enabled = true;
         }
+        /// <summary>
+        /// When the user clicks the next button, we iniitate the next step
+        /// </summary>
         private void NextStep()
         {
             if (MintCurrentStep == MobjSteps.Count - 1)
@@ -60,6 +80,9 @@ namespace OfficeWebAddInVerifier.Wizard
                 MobjButtons.NextButton.Text = "&Finish";
             }
         }
+        /// <summary>
+        /// When the user clicks the back button we go back to the previous step
+        /// </summary>
         private void BackStep()
         {
             MobjButtons.NextButton.Text = "&Next >";

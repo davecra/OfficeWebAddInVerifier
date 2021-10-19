@@ -11,7 +11,7 @@ namespace OfficeWebAddInVerifier
     {
         public const string ERROR_HEAD = "ERROR: ";
         public const string SUCCESS_HEAD = "SUCCESS: ";
-        public const string FAIL_HEAD = "FAIL: ";
+        public const string FAIL_HEAD = "FAILED: ";
         public static string ToLogTime(this DateTime LobjNow)
         {
             return LobjNow.ToString("HH:mm:ss");

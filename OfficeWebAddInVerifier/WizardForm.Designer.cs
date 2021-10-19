@@ -31,6 +31,8 @@ namespace OfficeWebAddInVerifier
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormWizard));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.buttonLoad = new System.Windows.Forms.Button();
             this.labelStart = new System.Windows.Forms.Label();
             this.buttonNext = new System.Windows.Forms.Button();
@@ -48,12 +50,22 @@ namespace OfficeWebAddInVerifier
             this.buttonSave = new System.Windows.Forms.Button();
             this.listBoxFiles = new System.Windows.Forms.ListBox();
             this.textBoxLocation = new System.Windows.Forms.TextBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButtonSkipFiles = new System.Windows.Forms.RadioButton();
             this.radioButtonScanFolder = new System.Windows.Forms.RadioButton();
             this.radioButtonFileList = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.groupBoxCreds = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBoxDomain = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBoxPassword = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxUsername = new System.Windows.Forms.TextBox();
+            this.radioButtonProvidedCredentials = new System.Windows.Forms.RadioButton();
+            this.radioButtonCurrentUser = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxUrl = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -61,14 +73,13 @@ namespace OfficeWebAddInVerifier
             this.buttonSaveConfig = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBoxFileList.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.groupBoxCreds.SuspendLayout();
             this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,6 +94,27 @@ namespace OfficeWebAddInVerifier
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1262, 781);
             this.panel1.TabIndex = 0;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(25, 25);
+            this.label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(210, 51);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "Welcome";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(25, 99);
+            this.label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(1008, 250);
+            this.label6.TabIndex = 2;
+            this.label6.Text = resources.GetString("label6.Text");
             // 
             // buttonLoad
             // 
@@ -191,7 +223,7 @@ namespace OfficeWebAddInVerifier
             // 
             this.panel3.Controls.Add(this.buttonOpen);
             this.panel3.Controls.Add(this.groupBoxFileList);
-            this.panel3.Controls.Add(this.radioButton1);
+            this.panel3.Controls.Add(this.radioButtonSkipFiles);
             this.panel3.Controls.Add(this.radioButtonScanFolder);
             this.panel3.Controls.Add(this.radioButtonFileList);
             this.panel3.Controls.Add(this.label2);
@@ -258,17 +290,17 @@ namespace OfficeWebAddInVerifier
             this.textBoxLocation.Size = new System.Drawing.Size(1168, 31);
             this.textBoxLocation.TabIndex = 0;
             // 
-            // radioButton1
+            // radioButtonSkipFiles
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(32, 175);
-            this.radioButton1.Margin = new System.Windows.Forms.Padding(6);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(172, 29);
-            this.radioButton1.TabIndex = 3;
-            this.radioButton1.Text = "S&kip this step";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            this.radioButtonSkipFiles.AutoSize = true;
+            this.radioButtonSkipFiles.Location = new System.Drawing.Point(32, 175);
+            this.radioButtonSkipFiles.Margin = new System.Windows.Forms.Padding(6);
+            this.radioButtonSkipFiles.Name = "radioButtonSkipFiles";
+            this.radioButtonSkipFiles.Size = new System.Drawing.Size(172, 29);
+            this.radioButtonSkipFiles.TabIndex = 3;
+            this.radioButtonSkipFiles.Text = "S&kip this step";
+            this.radioButtonSkipFiles.UseVisualStyleBackColor = true;
+            this.radioButtonSkipFiles.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // radioButtonScanFolder
             // 
@@ -306,15 +338,123 @@ namespace OfficeWebAddInVerifier
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.groupBoxCreds);
+            this.panel4.Controls.Add(this.radioButtonProvidedCredentials);
+            this.panel4.Controls.Add(this.radioButtonCurrentUser);
             this.panel4.Controls.Add(this.label4);
             this.panel4.Controls.Add(this.textBoxUrl);
             this.panel4.Controls.Add(this.label3);
-            this.panel4.Location = new System.Drawing.Point(94, 135);
+            this.panel4.Location = new System.Drawing.Point(95, 140);
             this.panel4.Margin = new System.Windows.Forms.Padding(6);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1262, 781);
             this.panel4.TabIndex = 1;
             this.panel4.VisibleChanged += new System.EventHandler(this.panel4_VisibleChanged);
+            // 
+            // groupBoxCreds
+            // 
+            this.groupBoxCreds.Controls.Add(this.label11);
+            this.groupBoxCreds.Controls.Add(this.textBoxDomain);
+            this.groupBoxCreds.Controls.Add(this.label10);
+            this.groupBoxCreds.Controls.Add(this.textBoxPassword);
+            this.groupBoxCreds.Controls.Add(this.label9);
+            this.groupBoxCreds.Controls.Add(this.label8);
+            this.groupBoxCreds.Controls.Add(this.textBoxUsername);
+            this.groupBoxCreds.Location = new System.Drawing.Point(66, 250);
+            this.groupBoxCreds.Name = "groupBoxCreds";
+            this.groupBoxCreds.Size = new System.Drawing.Size(968, 263);
+            this.groupBoxCreds.TabIndex = 5;
+            this.groupBoxCreds.TabStop = false;
+            this.groupBoxCreds.Text = "Credentials";
+            this.groupBoxCreds.Visible = false;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(23, 182);
+            this.label11.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(779, 50);
+            this.label11.TabIndex = 6;
+            this.label11.Text = "NOTE: If you are connecting to O365, only the email and password are needed.\r\n   " +
+    "         If connecting to a legacy Exchange server, you must provide the domain." +
+    "\r\n";
+            // 
+            // textBoxDomain
+            // 
+            this.textBoxDomain.Location = new System.Drawing.Point(326, 124);
+            this.textBoxDomain.Name = "textBoxDomain";
+            this.textBoxDomain.PasswordChar = '*';
+            this.textBoxDomain.Size = new System.Drawing.Size(553, 31);
+            this.textBoxDomain.TabIndex = 5;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(23, 130);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(91, 25);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "Domain:";
+            // 
+            // textBoxPassword
+            // 
+            this.textBoxPassword.Location = new System.Drawing.Point(326, 79);
+            this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.PasswordChar = '*';
+            this.textBoxPassword.Size = new System.Drawing.Size(553, 31);
+            this.textBoxPassword.TabIndex = 3;
+            this.textBoxPassword.TextChanged += new System.EventHandler(this.textBoxPassword_TextChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(22, 82);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(112, 25);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "Password:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(23, 37);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(285, 25);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "Email Address/or Username:";
+            // 
+            // textBoxUsername
+            // 
+            this.textBoxUsername.Location = new System.Drawing.Point(326, 34);
+            this.textBoxUsername.Name = "textBoxUsername";
+            this.textBoxUsername.Size = new System.Drawing.Size(553, 31);
+            this.textBoxUsername.TabIndex = 0;
+            this.textBoxUsername.TextChanged += new System.EventHandler(this.textBoxUsername_TextChanged);
+            // 
+            // radioButtonProvidedCredentials
+            // 
+            this.radioButtonProvidedCredentials.AutoSize = true;
+            this.radioButtonProvidedCredentials.Location = new System.Drawing.Point(46, 215);
+            this.radioButtonProvidedCredentials.Name = "radioButtonProvidedCredentials";
+            this.radioButtonProvidedCredentials.Size = new System.Drawing.Size(403, 29);
+            this.radioButtonProvidedCredentials.TabIndex = 4;
+            this.radioButtonProvidedCredentials.TabStop = true;
+            this.radioButtonProvidedCredentials.Text = "Provide credentials to test connection";
+            this.radioButtonProvidedCredentials.UseVisualStyleBackColor = true;
+            this.radioButtonProvidedCredentials.CheckedChanged += new System.EventHandler(this.radioButtonProvidedCredentials_CheckedChanged);
+            // 
+            // radioButtonCurrentUser
+            // 
+            this.radioButtonCurrentUser.AutoSize = true;
+            this.radioButtonCurrentUser.Checked = true;
+            this.radioButtonCurrentUser.Location = new System.Drawing.Point(46, 171);
+            this.radioButtonCurrentUser.Name = "radioButtonCurrentUser";
+            this.radioButtonCurrentUser.Size = new System.Drawing.Size(472, 29);
+            this.radioButtonCurrentUser.TabIndex = 3;
+            this.radioButtonCurrentUser.TabStop = true;
+            this.radioButtonCurrentUser.Text = "Use current Windows Credentials to Connect";
+            this.radioButtonCurrentUser.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
@@ -334,6 +474,7 @@ namespace OfficeWebAddInVerifier
             this.textBoxUrl.Name = "textBoxUrl";
             this.textBoxUrl.Size = new System.Drawing.Size(1192, 31);
             this.textBoxUrl.TabIndex = 1;
+            this.textBoxUrl.TextChanged += new System.EventHandler(this.textBoxUrl_TextChanged);
             // 
             // label3
             // 
@@ -376,42 +517,22 @@ namespace OfficeWebAddInVerifier
             this.label5.TabIndex = 2;
             this.label5.Text = resources.GetString("label5.Text");
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(25, 99);
-            this.label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(1008, 250);
-            this.label6.TabIndex = 2;
-            this.label6.Text = resources.GetString("label6.Text");
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(25, 25);
-            this.label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(210, 51);
-            this.label7.TabIndex = 3;
-            this.label7.Text = "Welcome";
-            // 
             // FormWizard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1902, 889);
             this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel5);
-            this.Controls.Add(this.panel4);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonBack);
             this.Controls.Add(this.buttonNext);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -430,6 +551,8 @@ namespace OfficeWebAddInVerifier
             this.groupBoxFileList.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.groupBoxCreds.ResumeLayout(false);
+            this.groupBoxCreds.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.ResumeLayout(false);
@@ -455,7 +578,7 @@ namespace OfficeWebAddInVerifier
         private System.Windows.Forms.GroupBox groupBoxFileList;
         private System.Windows.Forms.ListBox listBoxFiles;
         private System.Windows.Forms.TextBox textBoxLocation;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButtonSkipFiles;
         private System.Windows.Forms.RadioButton radioButtonScanFolder;
         private System.Windows.Forms.RadioButton radioButtonFileList;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
@@ -471,5 +594,15 @@ namespace OfficeWebAddInVerifier
         private System.Windows.Forms.Button buttonLoad;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.GroupBox groupBoxCreds;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBoxDomain;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBoxPassword;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxUsername;
+        private System.Windows.Forms.RadioButton radioButtonProvidedCredentials;
+        private System.Windows.Forms.RadioButton radioButtonCurrentUser;
     }
 }

@@ -12,7 +12,9 @@ namespace OfficeWebAddInVerifier
         public string ManifestPath { get; set; } // textBoxManifest.Text
         public List<string> Files { get; set; }
         public string Asmx { get; set; }
-
+        public bool UseDefaultCredentials { get; set; }
+        public string UserName { get; set; }
+        public string Domain { get; set; }
         public void GetManifestAsBase64()
         {
             using (var client = new System.Net.WebClient())
