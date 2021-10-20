@@ -32,3 +32,16 @@ C:\GitHub\OfficeWebAddInVerifier\OfficeWebAddInVerifier\obj\Debug\OfficeWebAddIn
 C:\GitHub\OfficeWebAddInVerifier\OfficeWebAddInVerifier\obj\Debug\OfficeWebAddInVerifier.pdb
 C:\GitHub\OfficeWebAddInVerifier\OfficeWebAddInVerifier\bin\Debug\Newtonsoft.Json.dll
 C:\GitHub\OfficeWebAddInVerifier\OfficeWebAddInVerifier\obj\Debug\OfficeWebAddInVerifier.csproj.CopyComplete
+C:\Users\davecra\Source\Repos\OfficeWebAddInVerifier\OfficeWebAddInVerifier\obj\Debug\OfficeWebAddInVerifier.csprojAssemblyReference.cache
+C:\Users\davecra\Source\Repos\OfficeWebAddInVerifier\OfficeWebAddInVerifier\obj\Debug\OfficeWebAddInVerifier.LogForm.resources
+C:\Users\davecra\Source\Repos\OfficeWebAddInVerifier\OfficeWebAddInVerifier\obj\Debug\OfficeWebAddInVerifier.Properties.Resources.resources
+C:\Users\davecra\Source\Repos\OfficeWebAddInVerifier\OfficeWebAddInVerifier\obj\Debug\OfficeWebAddInVerifier.FormWizard.resources
+C:\Users\davecra\Source\Repos\OfficeWebAddInVerifier\OfficeWebAddInVerifier\obj\Debug\OfficeWebAddInVerifier.csproj.GenerateResource.cache
+C:\Users\davecra\Source\Repos\OfficeWebAddInVerifier\OfficeWebAddInVerifier\obj\Debug\OfficeWebAddInVerifier.csproj.CoreCompileInputs.cache
+C:\Users\davecra\Source\Repos\OfficeWebAddInVerifier\OfficeWebAddInVerifier\obj\Debug\OfficeWebAddInVerifier.exe
+C:\Users\davecra\Source\Repos\OfficeWebAddInVerifier\OfficeWebAddInVerifier\obj\Debug\OfficeWebAddInVerifier.pdb
+C:\Users\davecra\Source\Repos\OfficeWebAddInVerifier\OfficeWebAddInVerifier\bin\Debug\OfficeWebAddInVerifier.exe.config
+C:\Users\davecra\Source\Repos\OfficeWebAddInVerifier\OfficeWebAddInVerifier\bin\Debug\OfficeWebAddInVerifier.exe
+C:\Users\davecra\Source\Repos\OfficeWebAddInVerifier\OfficeWebAddInVerifier\bin\Debug\OfficeWebAddInVerifier.pdb
+C:\Users\davecra\Source\Repos\OfficeWebAddInVerifier\OfficeWebAddInVerifier\bin\Debug\Newtonsoft.Json.dll
+C:\Users\davecra\Source\Repos\OfficeWebAddInVerifier\OfficeWebAddInVerifier\obj\Debug\OfficeWebAddInVerifier.csproj.CopyComplete
