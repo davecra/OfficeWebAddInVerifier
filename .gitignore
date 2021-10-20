@@ -350,5 +350,5 @@ MigrationBackup/
 .ionide/
 
 # No binaries
-bin/
-object/
+OfficeWebAddInVerifier/bin/
+OfficeWebAddInVerifier/object/
